@@ -1,26 +1,28 @@
-import logo from './logo.svg';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { BrowserRouter as Router, useLocation } from 'react-router-dom';
+import RouteZip from './components/basis/RouteZip';
+import Footer from './components/basis/Footer';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Main />
+    </Router>
   );
 }
+
+const Main = () => {
+  const location = useLocation();
+  const hideFooterRoutes = ['/', '/login', '/join'];
+  const shouldHideFooter = hideFooterRoutes.includes(location.pathname);
+
+  return (
+    <div className='App'>
+      <RouteZip />
+      {!shouldHideFooter && <Footer />}
+    </div>
+  );
+};
 
 export default App;
